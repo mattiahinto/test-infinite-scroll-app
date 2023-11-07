@@ -1,6 +1,6 @@
 import { StyledLayout } from "../components/Layout/Layout.styled";
 import Header from "../components/Header/Header";
-import List from "../components/List";
+import List from "../components/List/List";
 
 const Home = () => {
   /**

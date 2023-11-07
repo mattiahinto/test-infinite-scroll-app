@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Post from "./Post";
+import Post from "../Post";
+import { getItems } from "../../utils/Api";
+import { StyledList, StyledListHiddenLoadMore } from "./List.styled";
 
-const List = () => {
+function List() {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const fetchPosts = async () => {
     setLoading(true);
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`
-    );
+    const response = await getItems(page);
     setPosts((prevPosts) => [...prevPosts, ...response.data]);
     setLoading(false);
   };
@@ -35,14 +34,14 @@ const List = () => {
   }, []);
 
   return (
-    <div className="List">
+    <StyledList>
       <h1>Infinite Scroll App di MATTIA</h1>
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
       {loading && <p>Loading...</p>}
-    </div>
+    </StyledList>
   );
-};
+}
 
 export default List;
